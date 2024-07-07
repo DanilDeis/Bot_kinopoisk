@@ -1,1 +1,1 @@
-from callback_handler.callback_h import *
+from callback_handler import callback_h

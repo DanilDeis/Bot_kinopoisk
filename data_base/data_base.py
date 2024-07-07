@@ -1,7 +1,6 @@
 from peewee import (
     AutoField,
     CharField,
-    DateField,
     ForeignKeyField,
     Model,
     SqliteDatabase, PrimaryKeyField, DateTimeField

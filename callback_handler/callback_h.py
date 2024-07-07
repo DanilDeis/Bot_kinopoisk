@@ -1,9 +1,8 @@
 import datetime
 from telebot import types
-from api_kino import send_req, str_view
+from api_kino.api_kinopoisk import send_req, str_view
 from data_base.data_base import Task, Objects
-from message_h.message_h import genres
-from import_for import *
+from message_handler.message_handler import genres
 
 
 def handle_sorting(call: types.CallbackQuery) -> None:
@@ -17,6 +16,7 @@ def handle_sorting(call: types.CallbackQuery) -> None:
     - None
 
     """
+    from handlers import bot
     user_id = call.from_user.id
     sort_method = call.data.split('_')[-1]
     markup = types.InlineKeyboardMarkup()
@@ -51,6 +51,7 @@ def handle_genre_selection(call: types.CallbackQuery) -> None:
     - None
 
     """
+    from handlers import bot
     user_id = call.from_user.id
     markup = types.InlineKeyboardMarkup()
     button_numbers = ["10", "20", "30", "40", "50"]
@@ -84,6 +85,7 @@ def handle_quantity_selection(call: types.CallbackQuery) -> None:
     - None
 
     """
+    from handlers import bot, api_kinopoisk
     user_id = call.from_user.id
     selected_option = call.data.split('_')[-1]
     bot.send_message(call.message.chat.id, f"Вы выбрали {selected_option} фильмов.")

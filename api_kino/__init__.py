@@ -1,1 +1,1 @@
-from api_kino.api_kino import *
+from api_kino import api_kinopoisk

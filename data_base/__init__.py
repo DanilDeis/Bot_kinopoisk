@@ -1,1 +1,1 @@
-from data_base.data_base import *
+from data_base import data_base

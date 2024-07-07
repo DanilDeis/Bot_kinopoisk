@@ -2,7 +2,6 @@ from telebot import types
 from typing import List
 from data_base.data_base import Task, Objects
 import datetime
-from import_for import *
 
 
 
@@ -27,6 +26,7 @@ def send_history(message: types.Message) -> None:
     - None
 
     """
+    from handlers import bot
     tasks = Task.select().order_by(Task.due_date.desc()).limit(10)
     for task in tasks:
         if task.genre is not None:
@@ -38,7 +38,6 @@ def send_history(message: types.Message) -> None:
             message_text: str = f"Команда: {title}\nВремя: {due_date}\nЖанр: {genre}\nКритерий сортировки: {sort_method}\nКоличество фильмов: {quantity}"
         else:
             message_text: str = f"Команда: {task.title}\nВремя: {task.due_date.strftime('%d.%m.%Y %H:%M:%S')}"
-
         bot.send_message(message.chat.id, message_text)
 
 
@@ -53,9 +52,10 @@ def send_welcome(message: types.Message) -> None:
     - None
 
     """
+    from handlers import bot
     bot.reply_to(message, """\
 Привет я бот для поиска фильмов .
-Я здесь чтоб помочь тебе в поиске фильмов на сайте "Kinopoisk"!  Вы можете нажать кнопку /low для поиска фильмов по критериям.\
+Используйте команды для навигации по боту.Для более подробной информации наберите команду /help с клавиатуры или нажмите в меню ниже\
 """)
     user_id = message.from_user.id
     current_datetime = datetime.datetime.now()
@@ -69,7 +69,22 @@ def send_welcome(message: types.Message) -> None:
         quantity=None
     )
 
+def send_help(message: types.Message) -> None:
+    """
+    Отправляет приветственное сообщение и создает задачу для пользователя.
 
+    Параметры:
+    - message (telebot.types.Message): Объект сообщения от пользователя.
+
+    Возвращает:
+    - None
+
+    """
+    from handlers import bot
+    bot.reply_to(message, """\
+Привет я бот для поиска фильмов .
+Я здесь чтоб помочь тебе в поиске фильмов на сайте "Kinopoisk"!  Вы можете нажать кнопку /low для поиска фильмов по критериям(нажимайте на кнопки до появления результатов вашего поиска).Команда /history - выводит 10 последних команд бота. \
+""")
 def inline_button(message: types.Message) -> None:
     """
     Отправляет сообщение с кнопками для выбора метода сортировки.
@@ -85,5 +100,6 @@ def inline_button(message: types.Message) -> None:
     low_button = types.InlineKeyboardButton(text="По возрастанию ⬆️", callback_data='1')
     high_button = types.InlineKeyboardButton(text="По убыванию ⬇️", callback_data='2')
     markup.add(low_button, high_button)
+    from handlers import bot
     bot.send_message(message.chat.id, "Выберите метод сортировки", reply_markup=markup)
 
