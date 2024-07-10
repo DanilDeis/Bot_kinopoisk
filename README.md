@@ -14,10 +14,10 @@ Bot kinopoisk - это бот для Telegramm с помощью которог�
 ```source venv/bin/activate```
 5. Установите зависимости `pip install -r requirements.txt`.
 6. Создайте файл `settings.py`.
-7. Впишите в settings.py переменные:
+7. Впишите в .env переменные:
 ```
-API_TOKEN=7200709176:AAGdHDdKFQBDH7qtXQqAf3wKlWwK53rotJ8
-api_kinopoisk =8SFS5TR-FZD45JS-PKZP84J-GZGW8W9
+API_TOKEN=API вашего бота.
+api_kinopoisk=API кинопоиска.
 ```
 8. Запустите бота командой python `python3 main.py`.
 9. Запуск скрипта для демонстрации возможностей "Botkinopoisk".
