@@ -1,11 +1,6 @@
-from inicialization import *
+from config import *
 from telebot import types
 from message_handler.message_handler import send_help
-
-load_dotenv(find_dotenv())
-api_kinopoisk = os.getenv('api_kinopoisk')
-bot = telebot.TeleBot(token=os.getenv('API_TOKEN'))
-
 
 @bot.message_handler(commands=['start'])
 def welcome(message: types.Message) -> None:
