@@ -2,8 +2,7 @@ from telebot import types
 from typing import List
 from data_base.data_base import Task, Objects
 import datetime
-
-
+from config import bot
 
 genres: List[str] = [
     'комедия', 'ужасы', 'мелодрама', 'детектив', 'криминал',
@@ -26,7 +25,7 @@ def send_history(message: types.Message) -> None:
     - None
 
     """
-    from handlers import bot
+
     tasks = Task.select().order_by(Task.due_date.desc()).limit(10)
     for task in tasks:
         if task.genre is not None:
@@ -52,7 +51,6 @@ def send_welcome(message: types.Message) -> None:
     - None
 
     """
-    from handlers import bot
     bot.reply_to(message, """\
 Привет я бот для поиска фильмов .
 Используйте команды для навигации по боту.Для более подробной информации наберите команду /help с клавиатуры или нажмите в меню ниже\
@@ -80,7 +78,6 @@ def send_help(message: types.Message) -> None:
     - None
 
     """
-    from handlers import bot
     bot.reply_to(message, """\
 Привет я бот для поиска фильмов .
 Я здесь чтоб помочь тебе в поиске фильмов на сайте "Kinopoisk"!  Вы можете нажать кнопку /low для поиска фильмов по критериям(нажимайте на кнопки до появления результатов вашего поиска).Команда /history - выводит 10 последних команд бота. \
@@ -100,6 +97,6 @@ def inline_button(message: types.Message) -> None:
     low_button = types.InlineKeyboardButton(text="По возрастанию ⬆️", callback_data='1')
     high_button = types.InlineKeyboardButton(text="По убыванию ⬇️", callback_data='2')
     markup.add(low_button, high_button)
-    from handlers import bot
+
     bot.send_message(message.chat.id, "Выберите метод сортировки", reply_markup=markup)
 

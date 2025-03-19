@@ -1,6 +1,7 @@
-from config import *
+from config import bot
 from telebot import types
-from message_handler.message_handler import send_help
+from message_handler.message_handler import send_help, send_welcome, send_history, inline_button, genres
+from callback_handler.callback_h import handle_sorting, handle_genre_selection, handle_quantity_selection
 
 @bot.message_handler(commands=['start'])
 def welcome(message: types.Message) -> None:

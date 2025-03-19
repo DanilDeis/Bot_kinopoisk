@@ -2,7 +2,7 @@ from typing import List, Union
 import requests
 import json
 from data_base.data_base import Objects
-
+from config import bot
 
 def send_req(all_objects: List[Objects], api_kinopoisk: str) -> Union[str, dict]:
     """
@@ -69,5 +69,5 @@ def str_view(result: dict, chat_id: str) -> None:
                     count += 1
                     all_str = f"{str(count)}) {elem['name']} - {elem['year']} - kp rating {elem['rating']['kp']} - imdb rating {elem['rating']['imdb']}\n"
                     total_str += all_str
-    from handlers import bot
+
     bot.send_message(chat_id, total_str)
